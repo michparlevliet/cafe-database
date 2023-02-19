@@ -32,7 +32,7 @@ namespace PassionProject.Models
         public bool CafeAccessibility { get; set; }
 
         // a cafe could have many coffees
-        //public ICollection<coffee> Coffee { get; set; }
+        public ICollection<coffee> Coffees { get; set; }
 
     }
     public class CafeDto

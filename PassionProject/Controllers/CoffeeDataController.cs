@@ -18,7 +18,8 @@ namespace PassionProject.Controllers
 
         // GET: api/CoffeeData/ListCoffees
         [HttpGet]
-        public IEnumerable<CoffeeDto> ListCoffees()
+        [ResponseType(typeof(CoffeeDto))]
+        public IHttpActionResult ListCoffees()
         {
             List<coffee> coffees = db.Coffees.ToList();
             List<CoffeeDto> CoffeeDtos = new List<CoffeeDto>();
@@ -31,7 +32,28 @@ namespace PassionProject.Controllers
                 RoastType = c.RoastType
             }));
 
-            return CoffeeDtos;
+            return Ok(CoffeeDtos);
+        }
+        // GET: api/CoffeeData/ListCoffeesForCafe/5
+        [HttpGet]
+        [ResponseType(typeof(CoffeeDto))]
+        public IHttpActionResult ListCoffeesForCafe(int id)
+        {
+            List<coffee> coffees = db.Coffees.Where(
+                ca=>ca.Cafes.Any(
+                   co=>co.CafeId==id)
+                ).ToList();
+            List<CoffeeDto> CoffeeDtos = new List<CoffeeDto>();
+
+            coffees.ForEach(co => CoffeeDtos.Add(new CoffeeDto()
+            {
+                CoffeeId = co.CoffeeId,
+                CoffeeName = co.CoffeeName,
+                CompanyName = co.CompanyName,
+                RoastType = co.RoastType
+            }));
+
+            return Ok(CoffeeDtos);
         }
 
         // GET: api/CoffeeData/FindCoffee/5

@@ -38,6 +38,31 @@ namespace PassionProject.Controllers
 
             return CafeDtos;
         }
+        // GET: api/CafeData/ListCafesForCoffee/5
+        [HttpGet]
+        [ResponseType(typeof(CafeDto))]
+        public IHttpActionResult ListCafesForCoffee(int id)
+        {
+            List<cafe> cafes = db.Cafes.Where(
+                co => co.Coffees.Any(
+                    ca => ca.CoffeeId == id)
+                ).ToList();
+            List<CafeDto> CafeDtos = new List<CafeDto>();
+
+            cafes.ForEach(ca => CafeDtos.Add(new CafeDto()
+            {
+                CafeId = ca.CafeId,
+                CafeName = ca.CafeName,
+                CafeLocation = ca.CafeLocation,
+                CafeAddress = ca.CafeAddress,
+                CafeSeating = ca.CafeSeating,
+                CafePatio = ca.CafePatio,
+                CafeMenu = ca.CafeMenu,
+                CafeAccessibility = ca.CafeAccessibility
+            }));
+
+            return Ok(CafeDtos);
+        }
 
         // GET: api/CafeData/FindCafe/2
         [ResponseType(typeof(cafe))]
@@ -64,7 +89,7 @@ namespace PassionProject.Controllers
             return Ok(CafeDto);
         }
 
-        // PUT: api/CafeData/UpdateCafe/2
+        // POST: api/CafeData/UpdateCafe/2
         [ResponseType(typeof(void))]
         [HttpPost]
         public IHttpActionResult UpdateCafe(int id, cafe cafe)

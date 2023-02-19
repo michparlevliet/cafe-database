@@ -27,7 +27,7 @@ namespace PassionProject.Models
         // creates a simple bridging table with cafeid and coffeeid
         // drawback: limited expression on bridging table, no additional information can be displayed here
         // benefits: easy to set up
-        //public ICollection<cafe> Cafe { get; set; }
+        public ICollection<cafe> Cafes { get; set; }
 
     }
 

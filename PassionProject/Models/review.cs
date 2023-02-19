@@ -25,4 +25,17 @@ namespace PassionProject.Models
 
         public string ReviewComment { get; set; }
     }
+
+    public class ReviewDto
+    {
+        public int ReviewId { get; set; }
+
+        public int CafeId { get; set; }
+        public string ReviewerName { get; set; }
+
+        public int ReviewRating { get; set; }
+
+        public string ReviewComment { get; set; }
+
+    }
 }
