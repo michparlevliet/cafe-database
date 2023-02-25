@@ -1,6 +1,6 @@
 # Passion Project for HTTP5212
 
-Cafe database project built in ASP.Net.
+Cafe database project built in ASP.Net. This project serves the purpose of allowing users to epxlore and discover cafes and coffee roasters in their area. They can also view data about cafes including seating and patio options as well as location and accessibility.
 
 ## Functionality
 
