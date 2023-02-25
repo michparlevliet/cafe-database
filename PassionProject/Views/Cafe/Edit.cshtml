@@ -1,0 +1,49 @@
+﻿@model PassionProject.Models.ViewModels.UpdateCafe
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Update Cafe</h2>
+
+<form action="/Cafe/Update/@Model.SelectedCafe.CafeId" method="POST">
+    <div>
+        <label>Name:</label> <input type="text" name="CafeName" value="@Model.SelectedCafe.CafeName"/>
+    </div>
+    <div>
+        <label>Neighbourhood:</label> <input type="text" name="CafeLocation" value="@Model.SelectedCafe.CafeLocation"/>
+    </div>
+    <div>
+        <label>Address:</label> <input type="text" name="CafeAddress" value="@Model.SelectedCafe.CafeAddress"/>
+    </div>
+    <div>
+        <label>Amount of Seating:</label> <input type="number" name="CafeSeating" value="@Model.SelectedCafe.CafeSeating"/>
+    </div>
+    <div>
+        <input type="checkbox" id="patio" name="CafePatio" value="@Model.SelectedCafe.CafePatio" />
+        <label>Patio</label>
+    </div>
+    <div>
+        <label>Menu:</label> <input type="text" name="CafeMenu" value="@Model.SelectedCafe.CafeMenu"/>
+    </div>
+    <div>
+        <input type="checkbox" id="access" name="CafeAccessibility" value="@Model.SelectedCafe.CafeAccessibility"/>
+        <label>Wheelchair Accessibile</label>
+    </div>
+    @*<div>
+        <label>Coffee:</label>
+        <br />
+        @foreach (var coffee in Model.CoffeeOptions)
+        {
+            <input type="checkbox" id="@coffee.CoffeeId" name="CoffeeId" value="@coffee.CoffeeId" />
+            <label for="@coffee.CoffeeId">@coffee.CoffeeName (@coffee.CompanyName)</label>
+            <br />
+        }
+
+        <div>
+            <a href="">Add Another Coffee</a>
+        </div>
+    </div>*@
+    <div>
+        <input type="submit" value="Update Cafe" />
+    </div>
+</form>

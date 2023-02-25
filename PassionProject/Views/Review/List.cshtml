@@ -1,0 +1,12 @@
+﻿@model IEnumerable<PassionProject.Models.ReviewDto>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>All Reviews</h2>
+@foreach (var review in Model)
+{
+    <h2><a href="/Review/Details/@review.ReviewId" class="btn btn-primary btn-lg">Review by @review.ReviewerName</a></h2>
+    <div>@review.ReviewRating</div>
+
+}

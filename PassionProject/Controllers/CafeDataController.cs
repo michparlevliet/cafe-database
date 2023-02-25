@@ -24,16 +24,17 @@ namespace PassionProject.Controllers
             List<cafe> cafes = db.Cafes.ToList();
             List<CafeDto> CafeDtos = new List<CafeDto>();
 
-            cafes.ForEach(c => CafeDtos.Add(new CafeDto()
+            cafes.ForEach(ca => CafeDtos.Add(new CafeDto()
             {
-                CafeId = c.CafeId,
-                CafeName = c.CafeName,
-                CafeLocation = c.CafeLocation,
-                CafeAddress = c.CafeAddress,
-                CafeSeating = c.CafeSeating,
-                CafePatio = c.CafePatio,
-                CafeMenu = c.CafeMenu,
-                CafeAccessibility = c.CafeAccessibility
+                CafeId = ca.CafeId,
+                CafeName = ca.CafeName,
+                CafeLocation = ca.CafeLocation,
+                CafeAddress = ca.CafeAddress,
+                CafeSeating = ca.CafeSeating,
+                CafePatio = ca.CafePatio,
+                CafeMenu = ca.CafeMenu,
+                CafeAccessibility = ca.CafeAccessibility,
+                //Coffee = ca.Coffee
             }));
 
             return CafeDtos;
@@ -44,8 +45,8 @@ namespace PassionProject.Controllers
         public IHttpActionResult ListCafesForCoffee(int id)
         {
             List<cafe> cafes = db.Cafes.Where(
-                co => co.Coffees.Any(
-                    ca => ca.CoffeeId == id)
+                ca => ca.Coffee.Any(
+                    co => co.CoffeeId == id)
                 ).ToList();
             List<CafeDto> CafeDtos = new List<CafeDto>();
 
@@ -58,7 +59,29 @@ namespace PassionProject.Controllers
                 CafeSeating = ca.CafeSeating,
                 CafePatio = ca.CafePatio,
                 CafeMenu = ca.CafeMenu,
-                CafeAccessibility = ca.CafeAccessibility
+                CafeAccessibility = ca.CafeAccessibility,
+            }));
+
+            return Ok(CafeDtos);
+        }
+
+        [HttpGet]
+        [ResponseType(typeof(CafeDto))]
+        public IHttpActionResult ListCafesNotRelated(int id)
+        {
+            List<cafe> Cafes = db.Cafes.Where(ca => !ca.Coffee.Any(co => co.CoffeeId == id)).ToList();
+            List<CafeDto> CafeDtos = new List<CafeDto>();
+
+            Cafes.ForEach(ca => CafeDtos.Add(new CafeDto()
+            {
+                CafeId = ca.CafeId,
+                CafeName = ca.CafeName,
+                CafeLocation = ca.CafeLocation,
+                CafeAddress = ca.CafeAddress,
+                CafeSeating = ca.CafeSeating,
+                CafePatio = ca.CafePatio,
+                CafeMenu = ca.CafeMenu,
+                CafeAccessibility = ca.CafeAccessibility,
             }));
 
             return Ok(CafeDtos);
@@ -79,7 +102,8 @@ namespace PassionProject.Controllers
                 CafeSeating = cafe.CafeSeating,
                 CafePatio = cafe.CafePatio,
                 CafeMenu = cafe.CafeMenu,
-                CafeAccessibility = cafe.CafeAccessibility
+                CafeAccessibility = cafe.CafeAccessibility,
+                //Coffee = cafe.Coffee
             };
             if (cafe == null)
             {
@@ -126,8 +150,9 @@ namespace PassionProject.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/CafeData/AddCoffee
+        // POST: api/CafeData/AddCafe
         [ResponseType(typeof(cafe))]
+        [HttpPost]
         public IHttpActionResult AddCafe(cafe cafe)
         {
             if (!ModelState.IsValid)

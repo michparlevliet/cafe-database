@@ -1,0 +1,40 @@
+﻿@model PassionProject.Models.ViewModels.DetailsCoffee
+@{
+    ViewBag.Title = "Details";
+}
+
+<a href="/Coffee/List">Go Back to Coffee List</a>
+<br/>
+@*<a href="/Coffee/Edit/@Model.SelectedCoffee.CoffeeId">Update Coffee</a>*@
+@*<br/>*@
+<a style="color:red;" href="/Coffee/DeleteConfirm/@Model.SelectedCoffee.CoffeeId">Delete Coffee</a>
+
+<h2 style="color:darkslategray;">@Model.SelectedCoffee.CoffeeName</h2>
+<div>Company: @Model.SelectedCoffee.CompanyName</div>
+<div>Roast Type: @Model.SelectedCoffee.RoastType</div>
+<div style="margin-top:1em;">
+    <h3>Cafes Brewing @Model.SelectedCoffee.CoffeeName</h3>
+    <ul>
+        @foreach (var cafe in Model.RelatedCafes)
+        {
+            <li>
+                <a href="/Cafe/Details/@cafe.CafeId">@cafe.CafeName</a>
+            </li>
+        }
+    </ul>
+    <div>
+        <h4>Add new Cafe</h4>
+        <form method="POST" action="/Coffee/Associate/@Model.SelectedCoffee.CoffeeId">
+            <select name="CafeId">
+                @foreach (var cafe in Model.CafeOptions)
+                {
+                    <option value="@cafe.CafeId">@cafe.CafeName @cafe.CafeLocation</option>
+                }
+
+            </select>
+            <input type="submit" value="Add Cafe to Cafes Brewing @Model.SelectedCoffee.CoffeeName" />
+        </form>
+    </div>
+</div>
+
+

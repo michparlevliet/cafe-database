@@ -9,6 +9,8 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using PassionProject.Models;
+using PassionProject.Models.ViewModels;
+using System.Web.Script.Serialization;
 
 namespace PassionProject.Controllers
 {
@@ -24,12 +26,13 @@ namespace PassionProject.Controllers
             List<coffee> coffees = db.Coffees.ToList();
             List<CoffeeDto> CoffeeDtos = new List<CoffeeDto>();
 
-            coffees.ForEach(c => CoffeeDtos.Add(new CoffeeDto()
+            coffees.ForEach(co => CoffeeDtos.Add(new CoffeeDto()
             { 
-                CoffeeId = c.CoffeeId,
-                CoffeeName = c.CoffeeName,
-                CompanyName = c.CompanyName,
-                RoastType = c.RoastType
+                CoffeeId = co.CoffeeId,
+                CoffeeName = co.CoffeeName,
+                CompanyName = co.CompanyName,
+                RoastType = co.RoastType,
+            
             }));
 
             return Ok(CoffeeDtos);
@@ -39,10 +42,7 @@ namespace PassionProject.Controllers
         [ResponseType(typeof(CoffeeDto))]
         public IHttpActionResult ListCoffeesForCafe(int id)
         {
-            List<coffee> coffees = db.Coffees.Where(
-                ca=>ca.Cafes.Any(
-                   co=>co.CafeId==id)
-                ).ToList();
+            List<coffee> coffees = db.Coffees.Where(co=>co.Cafe.Any(ca=>ca.CafeId==id)).ToList();
             List<CoffeeDto> CoffeeDtos = new List<CoffeeDto>();
 
             coffees.ForEach(co => CoffeeDtos.Add(new CoffeeDto()
@@ -50,10 +50,46 @@ namespace PassionProject.Controllers
                 CoffeeId = co.CoffeeId,
                 CoffeeName = co.CoffeeName,
                 CompanyName = co.CompanyName,
-                RoastType = co.RoastType
+                RoastType = co.RoastType,
             }));
 
             return Ok(CoffeeDtos);
+        }
+
+        [HttpPost]
+        [Route("api/CoffeeData/AssociateCoffeeWithCafe/{coffeeid}/{cafeid}")]
+        public IHttpActionResult AssociateCoffeeWithCafe(int coffeeid, int cafeid)
+        {
+            coffee SelectedCoffee = db.Coffees.Include(co => co.Cafe).Where(co=> co.CoffeeId==coffeeid).FirstOrDefault();
+            cafe SelectedCafe = db.Cafes.Find(cafeid);
+
+            if(SelectedCoffee ==null || SelectedCafe == null)
+            {
+                return NotFound();
+            }
+
+            SelectedCoffee.Cafe.Add(SelectedCafe);
+            db.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("api/CoffeeData/UnassociateCoffeeWithCafe/{coffeeid}/{cafeid}")]
+        public IHttpActionResult UnassociateCoffeeWithCafe(int coffeeid, int cafeid)
+        {
+            coffee SelectedCoffee = db.Coffees.Include(co => co.Cafe).Where(co => co.CoffeeId == coffeeid).FirstOrDefault();
+            cafe SelectedCafe = db.Cafes.Find(cafeid);
+
+            if (SelectedCoffee == null || SelectedCafe == null)
+            {
+                return NotFound();
+            }
+
+            SelectedCoffee.Cafe.Remove(SelectedCafe);
+            db.SaveChanges();
+
+            return Ok();
         }
 
         // GET: api/CoffeeData/FindCoffee/5
@@ -67,7 +103,8 @@ namespace PassionProject.Controllers
                 CoffeeId = coffee.CoffeeId,
                 CoffeeName = coffee.CoffeeName,
                 CompanyName = coffee.CompanyName,
-                RoastType = coffee.RoastType
+                RoastType = coffee.RoastType,
+                //Cafe = coffee.Cafe
             };
             if (coffee == null)
             {

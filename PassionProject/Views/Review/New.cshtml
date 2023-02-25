@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>Add New Review</h2>
+<form action="/Review/Create" method="POST">
+    <div>
+        <label>Your Name:</label> <input type="text" name="ReviewerName" />
+    </div>
+    <div>
+        <label>Cafe:</label> <input type="text" name="CafeId" />
+    </div>
+    <div>
+        <label>Rating:</label> <input type="number" name="ReviewRating" />
+    </div>
+    <div>
+        <label>Comment:</label> <input type="text" name="ReviewComment" />
+    </div>
+    <div>
+        <input type="submit" value="Add Review" />
+    </div>
+
+</form>
+

@@ -1,0 +1,11 @@
+﻿@model PassionProject.Models.ViewModels.DetailsReview
+@{
+    ViewBag.Title = "Details";
+}
+
+<a href="/Review/List">Go Back to Review List</a>
+<h2>Review for @Model.SelectedReview.CafeName</h2>
+<div>Reviewer: @Model.SelectedReview.ReviewerName</div>
+<div>Rating: @Model.SelectedReview.ReviewRating/5 Stars</div>
+<div>@Model.SelectedReview.ReviewComment</div>
+

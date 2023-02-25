@@ -1,0 +1,16 @@
+﻿@model IEnumerable<PassionProject.Models.CoffeeDto>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2 style="margin:1em 0 1em 0;">Coffees</h2>
+<div style="display:flex;gap:1em;flex-flow:column;">
+    @foreach (var coffee in Model)
+    {
+        <div class="btn btn-primary btn-lg" style="background-color:darkslategrey;color:white;">
+            <h3><a style="text-decoration:none; color:white" href="/Coffee/Details/@coffee.CoffeeId">@coffee.CoffeeName</a></h3>
+            <p style="color: darkseagreen;" >@coffee.CompanyName</p>
+        </div>
+    }
+</div>
+

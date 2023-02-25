@@ -1,0 +1,51 @@
+﻿@model PassionProject.Models.ViewModels.DetailsCafe
+@{
+    ViewBag.Title = "Details";
+}
+
+<a href="/Cafe/List">Go Back to Cafe List</a>
+<br />
+<a href="/Cafe/Edit/@Model.SelectedCafe.CafeId">Update Cafe</a>
+<br />
+<a style="color:red;" href="/Cafe/DeleteConfirm/@Model.SelectedCafe.CafeId">Delete Cafe</a>
+
+<h2 style="color:darkslategray;">@Model.SelectedCafe.CafeName</h2>
+
+<div style="display:flex; flex-flow:row wrap; gap: 2em;" >
+    <div>
+        <img src="~/img/cafe-@Model.SelectedCafe.CafeId-.jpg" alt="Inside/outside of @Model.SelectedCafe.CafeName" width=350px />
+    </div>
+    <div>
+        <div><strong>Neighbourhood:</strong> @Model.SelectedCafe.CafeLocation</div>
+        <div><strong>Address:</strong> @Model.SelectedCafe.CafeAddress</div>
+        <div><strong>Amount of Seating:</strong> @Model.SelectedCafe.CafeSeating seats</div>
+        <div><strong>Patio Available:</strong> @Model.SelectedCafe.CafePatio</div>
+        <div><strong>Menu includes:</strong> @Model.SelectedCafe.CafeMenu</div>
+        <div><strong>Accessible:</strong> @Model.SelectedCafe.CafeAccessibility</div>
+    </div>
+</div>
+    <div>
+        <h3>Coffees: </h3>
+        <ul>
+            @foreach (var coffee in @Model.CoffeesOffered)
+            {
+                <li>
+                    <a href="/Coffee/Details/@coffee.CoffeeId">@coffee.CoffeeName</a>  by @coffee.CompanyName
+                </li>
+            }
+        </ul>
+        <h3>Reviews: </h3>
+        <ul>
+            @foreach (var review in @Model.CafeReviews)
+            {
+                <li>
+                    <a href="/Review/Details/@review.ReviewId">@review.ReviewRating/5 Stars</a>
+                    <p>@review.ReviewerName</p>
+                    <p>@review.ReviewComment</p>
+                </li>
+            }
+        </ul>
+    </div>
+
+
+

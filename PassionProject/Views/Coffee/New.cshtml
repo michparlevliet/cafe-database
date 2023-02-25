@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>Add New Coffee</h2>
+<form action="/Coffee/Create" method="POST">
+    <div>
+        <label>Name:</label> <input type="text" name="CoffeeName" />
+    </div>
+    <div>
+        <label>Company:</label> <input type="text" name="CompanyName" />
+    </div>
+    <div>
+        <label>RoastType:</label> <input type="text" name="RoastType" />
+    </div>
+    <div>
+        <label>Cafe:</label><input type="number" name="CafeID" />
+        <div>
+            <a href="">Add Another Cafe</a>
+        </div>
+    </div>
+    <div>
+        <input type="submit" value="Add Coffee" />
+    </div>
+       
+</form>
+

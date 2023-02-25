@@ -1,0 +1,45 @@
+﻿@model IEnumerable<PassionProject.Models.CoffeeDto>
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>Add New Cafe</h2>
+<form action="/Cafe/Create" method="POST">
+    <div>
+        <label>Name:</label> <input type="text" name="CafeName" />
+    </div>
+    <div>
+        <label>Neighbourhood:</label> <input type="text" name="CafeLocation" />
+    </div>
+    <div>
+        <label>Address:</label> <input type="text" name="CafeAddress" />
+    </div>
+    <div>
+        <label>Amount of Seating:</label> <input type="number" name="CafeSeating" />
+    </div>
+    <div>
+        <input type="checkbox" id="patio" name="CafePatio" value=true />
+        <label>Patio</label>
+    </div>
+    <div>
+        <label>Menu:</label> <input type="text" name="CafeMenu" />
+    </div>
+    <div>
+        <input type="checkbox" id="access" name="CafeAccessibility" value=true />
+        <label>Wheelchair Accessibile</label>
+    </div>
+    @*<div>
+        <label>Coffee:</label>
+        <br />
+        @foreach (var coffee in Model)
+        {
+            <input type="checkbox" id="@coffee.CoffeeId" name="CoffeeId" value="@coffee.CoffeeId" />
+            <label for="@coffee.CoffeeId">@coffee.CoffeeName (@coffee.CompanyName)</label>
+            <br />
+        }
+    </div>*@
+    <div>
+        <input type="submit" value="Add Cafe" />
+    </div>
+
+</form>

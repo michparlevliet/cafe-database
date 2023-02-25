@@ -33,7 +33,8 @@ namespace PassionProject.Models
 
         public DbSet<review> Reviews { get; set; }
 
-        public DbSet<cafexcoffee> CafexCoffee { get; set; }
+
+        //public DbSet<cafexcoffee> CafexCoffee { get; set; }
 
         public static ApplicationDbContext Create()
         {

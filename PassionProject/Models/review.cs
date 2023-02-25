@@ -15,9 +15,9 @@ namespace PassionProject.Models
         public int ReviewId { get; set; }
 
         // each review belongs to one cafe, but one cafe can have many reviews
-        [ForeignKey("CafeId")]
-        public virtual cafe cafe { get; set; }
+        [ForeignKey("Cafe")]
         public int CafeId { get; set; }
+        public virtual cafe Cafe { get; set; }
 
         public string ReviewerName { get; set; }
 
@@ -31,6 +31,7 @@ namespace PassionProject.Models
         public int ReviewId { get; set; }
 
         public int CafeId { get; set; }
+        public string CafeName { get; set; }
         public string ReviewerName { get; set; }
 
         public int ReviewRating { get; set; }
